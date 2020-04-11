@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "764839444814",
+    "firebase_url": "https://emschool-95101.firebaseio.com",
+    "project_id": "emschool-95101",
+    "storage_bucket": "emschool-95101.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764839444814:android:08563c9ce96a2446d29e1f",
+        "android_client_info": {
+          "package_name": "com.rayhanworld.roneemrayhan.emschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "764839444814-d6lom767k67ukefd5119me7kjgl7qpq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rayhanworld.roneemrayhan.emschool",
+            "certificate_hash": "5d3f66c0c359a6d195f2574df93c3c3bad82d1c4"
+          }
+        },
+        {
+          "client_id": "764839444814-55t7i15v3pgbiq0l0dimsogefqhkrqpn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlu325cSUy2QOEtkOunU0TwIEGPxmULy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "764839444814-55t7i15v3pgbiq0l0dimsogefqhkrqpn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
