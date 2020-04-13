@@ -1,3 +1,4 @@
+import 'package:em_school/screens/add_post.dart';
 import 'package:flutter/material.dart';
 import 'package:em_school/screens/home.dart';
 
@@ -59,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       counter++;
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AddPost()));
     });
   }
 
