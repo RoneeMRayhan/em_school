@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:em_school/main.dart';
 import 'package:em_school/models/post.dart';
 import 'package:em_school/screens/add_post.dart';
 import 'package:em_school/screens/view_post.dart';
@@ -25,6 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    super.initState();
     _database.reference().child(nodeName).onChildAdded.listen(_childAdded);
     _database.reference().child(nodeName).onChildRemoved.listen(_childRemoved);
     _database.reference().child(nodeName).onChildChanged.listen(_childChanged);

@@ -1,9 +1,10 @@
 import 'package:em_school/db/post_service.dart';
 import 'package:em_school/models/post.dart';
+import 'package:em_school/screens/home.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
 class AddPost extends StatefulWidget {
-  AddPost({Key key}) : super(key: key);
 
   @override
   _AddPostState createState() => _AddPostState();
@@ -60,7 +61,8 @@ class _AddPostState extends State<AddPost> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           insertPost();
-          Navigator.pop(context);
+          //Navigator.pop(context);
+          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
         },
         child: Icon(
           Icons.add,
@@ -79,6 +81,15 @@ class _AddPostState extends State<AddPost> {
       post.date = DateTime.now().millisecondsSinceEpoch;
       PostService postService = PostService(post.toMap());
       postService.addPost();
+      Fluttertoast.showToast(
+        msg: "Data inserted successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
     }
   }
 }
