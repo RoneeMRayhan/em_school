@@ -6,7 +6,7 @@ void main(List<String> args) {
     debugShowCheckedModeBanner: false,
     home: HomePage(),
     theme: ThemeData(
-      primaryColor: Colors.purple
+      primaryColor: Colors.purple,
     ),
   ));
 }
