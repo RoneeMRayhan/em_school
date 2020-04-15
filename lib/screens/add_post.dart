@@ -1,6 +1,9 @@
 import 'package:em_school/db/post_service.dart';
 import 'package:em_school/models/post.dart';
+import 'package:em_school/screens/edit_post.dart';
 import 'package:em_school/screens/home.dart';
+import 'package:em_school/screens/name.dart';
+import 'package:em_school/screens/view_post.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
@@ -63,6 +66,9 @@ class _AddPostState extends State<AddPost> {
           insertPost();
           //Navigator.pop(context);
           //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EditPost(post)));
+          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ViewPost(post)));
+          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Name()));
         },
         child: Icon(
           Icons.add,
