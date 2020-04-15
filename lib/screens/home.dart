@@ -1,7 +1,5 @@
 import 'package:em_school/models/post.dart';
 import 'package:em_school/screens/add_post.dart';
-import 'package:em_school/screens/name.dart';
-import 'package:em_school/screens/recipe_view.dart';
 import 'package:em_school/screens/view_post.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -106,7 +104,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => /*  ViewPostDraft Name*/AddPost()));
+              context, MaterialPageRoute(builder: (context) => AddPost()));
         },
         child: Icon(Icons.edit),
         backgroundColor: Colors.purple,
