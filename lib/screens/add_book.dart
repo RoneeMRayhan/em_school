@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'book_list.dart';
+
 class AddBook extends StatefulWidget {
   AddBook({Key key}) : super(key: key);
 
@@ -24,10 +26,18 @@ class _AddBookState extends State<AddBook> {
         children: <Widget>[
           TextFormField(
             decoration: InputDecoration(labelText: 'Enter your username'),
+            onChanged: (text) {
+              print("First text field: $text");
+              title = text;
+            },
           ),
           TextField(
             decoration: InputDecoration(
                 border: InputBorder.none, hintText: 'Enter a search term'),
+            onChanged: (text) {
+              print("First text field: $text");
+              author = text;
+            },
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,6 +67,8 @@ class _AddBookState extends State<AddBook> {
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                       fontSize: 16.0);
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => BookList()));
                 },
               ),
             ],

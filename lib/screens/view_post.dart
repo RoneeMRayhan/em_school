@@ -49,7 +49,10 @@ class _ViewPostState extends State<ViewPost> {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EditPost(widget.post)));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditPost(widget.post)));
                 },
               ),
             ],
