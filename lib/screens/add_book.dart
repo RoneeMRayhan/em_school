@@ -11,6 +11,7 @@ class AddBook extends StatefulWidget {
 
 class _AddBookState extends State<AddBook> {
   static String title = 't', author = 'a';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +19,31 @@ class _AddBookState extends State<AddBook> {
         title: Text('AddBook Page'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          TextFormField(
+            decoration: InputDecoration(labelText: 'Enter your username'),
+          ),
+          TextField(
+            decoration: InputDecoration(
+                border: InputBorder.none, hintText: 'Enter a search term'),
+          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              /* TextField(
+                decoration: InputDecoration(
+                    border: InputBorder.none, hintText: 'Enter a search term'),
+              ), */
               GestureDetector(
-                child: Text('Add Book'),
+                child: Text(
+                  'Add a Book',
+                  style: TextStyle(
+                      backgroundColor: Colors.amber,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
                 onTap: () {
                   Firestore.instance
                       .collection('books')
