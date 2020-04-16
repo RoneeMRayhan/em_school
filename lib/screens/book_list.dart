@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:em_school/screens/add_book.dart';
 import 'package:em_school/screens/home.dart';
 import 'package:em_school/screens/view_post.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class BookList extends StatelessWidget {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePage()));
+                                  builder: (context) => AddBook()));
                         },
                       ),
                       //onTap:  document.documentID,//Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ViewPost()));
