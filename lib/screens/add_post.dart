@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:em_school/db/post_service.dart';
 import 'package:em_school/models/post.dart';
+import 'package:em_school/screens/book_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
@@ -58,9 +60,15 @@ class _AddPostState extends State<AddPost> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          insertPost();
+          //insertPost();
           //Navigator.pop(context);
           //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+          Firestore.instance
+              .collection('books')
+              .document()
+              .setData({'title': 'title', 'author': 'author'});
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => BookList()));
         },
         child: Icon(
           Icons.add,
