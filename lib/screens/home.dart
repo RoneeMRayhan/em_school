@@ -1,8 +1,12 @@
 import 'package:em_school/models/post.dart';
+import 'package:em_school/screens/add_book.dart';
 import 'package:em_school/screens/add_post.dart';
+import 'package:em_school/screens/book_list.dart';
+import 'package:em_school/screens/edit_post.dart';
 import 'package:em_school/screens/view_post.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'book_list.dart';
 import 'package:flutter/widgets.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/material.dart';
@@ -65,8 +69,21 @@ class _HomePageState extends State<HomePage> {
         color: Colors.white,
         child: Column(
           children: <Widget>[
-            Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
+            GestureDetector(
+              child: Center(
+                child: _widgetOptions.elementAt(_selectedIndex),
+                heightFactor: 4.0,
+              ),
+              onTap: () {
+                //Navigator.push(context,MaterialPageRoute(builder: (context) => BookList()));
+                _selectedIndex >= 2
+                    ? setState(() {
+                        _selectedIndex = 0;
+                      })
+                    : setState(() {
+                        _selectedIndex++;
+                      });
+              },
             ),
             Visibility(
               visible: postsList.isEmpty,
