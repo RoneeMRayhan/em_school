@@ -74,15 +74,29 @@ class _HomePageState extends State<HomePage> {
                 child: _widgetOptions.elementAt(_selectedIndex),
                 heightFactor: 4.0,
               ),
-              onTap: () {
+              onPanUpdate: (details) {
+                num senstivity = 0;
+                if (details.delta.dx > senstivity) {
+                  _selectedIndex >= 2
+                      ? setState(() {
+                          _selectedIndex = 0;
+                        })
+                      : setState(() {
+                          _selectedIndex++;
+                        });
+                  // Right Swipe
+                  // Sestivity is integer is used when you don't want to mess up vertical drag
+                } else if (details.delta.dx < -senstivity) {
+                  _selectedIndex <= 0
+                      ? setState(() {
+                          _selectedIndex = 2;
+                        })
+                      : setState(() {
+                          _selectedIndex--;
+                        });
+                  //Left Swipe
+                }
                 //Navigator.push(context,MaterialPageRoute(builder: (context) => BookList()));
-                _selectedIndex >= 2
-                    ? setState(() {
-                        _selectedIndex = 0;
-                      })
-                    : setState(() {
-                        _selectedIndex++;
-                      });
               },
             ),
             Visibility(
