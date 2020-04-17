@@ -5,6 +5,8 @@ import 'package:em_school/screens/book_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 class AddPost extends StatefulWidget {
   @override
   _AddPostState createState() => _AddPostState();
@@ -37,7 +39,7 @@ class _AddPostState extends State<AddPost> {
                   if (val.isEmpty) {
                     return "Title filled can't be empty";
                   }
-                  return val;
+                  //return val;
                 },
               ),
             ),
@@ -53,7 +55,7 @@ class _AddPostState extends State<AddPost> {
                   if (val.isEmpty) {
                     return "Body filled can't be empty";
                   }
-                  return val;
+                  //return val;
                 },
               ),
             )
@@ -62,15 +64,15 @@ class _AddPostState extends State<AddPost> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //insertPost();
+          insertPost();
           //Navigator.pop(context);
           //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
-          Firestore.instance
+          /* Firestore.instance
               .collection('books')
               .document()
               .setData({'title': 'title', 'author': 'author'});
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => BookList()));
+              context, MaterialPageRoute(builder: (context) => BookList())); */
         },
         child: Icon(
           Icons.add,
@@ -97,6 +99,8 @@ class _AddPostState extends State<AddPost> {
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
     }
   }
 }

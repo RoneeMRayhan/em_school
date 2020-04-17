@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             Visibility(
-              visible: true, //postsList.isEmpty,
+              visible: postsList.isEmpty,
               child: Center(
                 child: Container(
                   alignment: Alignment.center,
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Visibility(
-              visible: true, //postsList.isEmpty,
+              visible: postsList.isNotEmpty,
               child: Flexible(
                   child: FirebaseAnimatedList(
                       query: _database.reference().child('posts'),

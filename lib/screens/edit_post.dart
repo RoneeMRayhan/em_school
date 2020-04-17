@@ -37,7 +37,7 @@ class _EditPostState extends State<EditPost> {
                   if (val.isEmpty) {
                     return "Text Field can't be empty";
                   }
-                  return "";
+                  return val;
                 },
               ),
             ),
@@ -56,7 +56,7 @@ class _EditPostState extends State<EditPost> {
                   } else if (val.length > 16) {
                     return "Body can't have more than 16 characters";
                   }
-                  return '';
+                  return val;
                 },
               ),
             ),
