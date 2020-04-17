@@ -9,8 +9,7 @@ class PostService {
   PostService(this.postMap);
 
   addPost() {
-    _databaseReference =
-        database.reference().child(nodeNamePath);
+    _databaseReference = database.reference().child(nodeNamePath);
     _databaseReference.push().set(postMap);
   }
 

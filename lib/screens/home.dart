@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             Visibility(
-              visible: postsList.isEmpty,
+              visible: true, //postsList.isEmpty,
               child: Center(
                 child: Container(
                   alignment: Alignment.center,

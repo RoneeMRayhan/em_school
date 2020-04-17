@@ -53,7 +53,7 @@ class _EditPostState extends State<EditPost> {
                 validator: (val) {
                   if (val.isEmpty) {
                     return "Body Field can't be empty";
-                  }else if(val.length > 16){
+                  } else if (val.length > 16) {
                     return "Body can't have more than 16 characters";
                   }
                   return '';
