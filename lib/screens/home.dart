@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Visibility(
-              visible: postsList.isEmpty,
+              visible: true, //postsList.isEmpty,
               child: Flexible(
                   child: FirebaseAnimatedList(
                       query: _database.reference().child('posts'),
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddPost()));
         },
-        child: Icon(Icons.edit),
+        child: Icon(Icons.add),
         backgroundColor: Colors.purple,
         tooltip: "Add a Post",
       ),
