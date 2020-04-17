@@ -25,17 +25,17 @@ class _AddBookState extends State<AddBook> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           TextFormField(
-            decoration: InputDecoration(labelText: 'Enter your username'),
+            decoration: InputDecoration(labelText: 'Enter Title'),
             onChanged: (text) {
-              print("First text field: $text");
+              print("Title: $text");
               title = text;
             },
           ),
           TextField(
             decoration: InputDecoration(
-                border: InputBorder.none, hintText: 'Enter a search term'),
+                border: InputBorder.none, hintText: 'Enter Author'),
             onChanged: (text) {
-              print("First text field: $text");
+              print("Author: $text");
               author = text;
             },
           ),
