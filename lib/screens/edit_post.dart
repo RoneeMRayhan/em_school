@@ -71,6 +71,7 @@ class _EditPostState extends State<EditPost> {
 
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text('Processing Data')));
+                        _formKey.currentState.save();
                   }
                   //Navigator.pop(context);
                 },
