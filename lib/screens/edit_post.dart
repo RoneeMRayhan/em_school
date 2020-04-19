@@ -1,5 +1,4 @@
 import 'package:em_school/models/post.dart';
-import 'package:em_school/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class EditPost extends StatefulWidget {
@@ -71,7 +70,7 @@ class _EditPostState extends State<EditPost> {
 
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text('Processing Data')));
-                        _formKey.currentState.save();
+                    _formKey.currentState.save();
                   }
                   //Navigator.pop(context);
                 },
