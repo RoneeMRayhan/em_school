@@ -25,7 +25,7 @@ class _ViewPostState extends State<ViewPost> {
       appBar: AppBar(
         title: Text(widget.post.title),
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
           Row(
             children: <Widget>[

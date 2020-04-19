@@ -37,7 +37,7 @@ class _AddPostState extends State<AddPost> {
                   if (val.isEmpty) {
                     return "Title filled can't be empty";
                   }
-                  //return val;
+                  return null;
                 },
               ),
             ),
@@ -53,7 +53,7 @@ class _AddPostState extends State<AddPost> {
                   if (val.isEmpty) {
                     return "Body filled can't be empty";
                   }
-                  //return val;
+                  return null;
                 },
               ),
             )
