@@ -1,12 +1,9 @@
 import 'package:em_school/models/post.dart';
-import 'package:em_school/screens/add_book.dart';
 import 'package:em_school/screens/add_post.dart';
-import 'package:em_school/screens/book_list.dart';
-import 'package:em_school/screens/edit_post.dart';
 import 'package:em_school/screens/view_post.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'book_list.dart';
+import 'package:swipedetector/swipedetector.dart';
 import 'package:flutter/widgets.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/material.dart';
@@ -65,99 +62,104 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       backgroundColor: Colors.amber[200],
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            GestureDetector(
-              child: Center(
-                child: _widgetOptions.elementAt(_selectedIndex),
-                heightFactor: 4.0,
-              ),
-              onPanUpdate: (details) {
-                num senstivity = 0;
-                if (details.delta.dx > senstivity) {
-                  _selectedIndex >= 2
-                      ? setState(() {
-                          _selectedIndex = 0;
-                        })
-                      : setState(() {
-                          _selectedIndex++;
-                        });
-                  // Right Swipe
-                  // Sestivity is integer is used when you don't want to mess up vertical drag
-                } else if (details.delta.dx < -senstivity) {
-                  _selectedIndex <= 0
-                      ? setState(() {
-                          _selectedIndex = 2;
-                        })
-                      : setState(() {
-                          _selectedIndex--;
-                        });
-                  //Left Swipe
-                }
-                //Navigator.push(context,MaterialPageRoute(builder: (context) => BookList()));
-              },
-            ),
-            Visibility(
-              visible: postsList.isEmpty,
-              child: Center(
-                child: Container(
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator(),
+      body: SwipeDetector(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              GestureDetector(
+                child: Center(
+                  child: _widgetOptions.elementAt(_selectedIndex),
+                  heightFactor: 4.0,
                 ),
               ),
-            ),
-            Visibility(
-              visible: postsList.isNotEmpty,
-              child: Flexible(
-                  child: FirebaseAnimatedList(
-                      query: _database.reference().child('posts'),
-                      itemBuilder: (_, DataSnapshot snap,
-                          Animation<double> animation, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
-                            color: Colors.blue,
-                            child: ListTile(
-                              title: ListTile(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ViewPost(postsList[index])));
-                                },
-                                title: Text(
-                                  postsList[index].title,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                trailing: Text(
-                                  timeago.format(
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          postsList[index].date)),
-                                  style: TextStyle(
-                                      fontSize: 14.0, color: Colors.black45),
-                                ),
-                                subtitle: Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 12.0, left: 12.0),
-                                  child: Text(
-                                    postsList[index].body,
-                                    style: TextStyle(color: Colors.white),
+              Visibility(
+                visible: postsList.isEmpty,
+                child: Center(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+              Visibility(
+                visible: postsList.isNotEmpty,
+                child: Flexible(
+                    child: FirebaseAnimatedList(
+                        query: _database.reference().child('posts'),
+                        itemBuilder: (_, DataSnapshot snap,
+                            Animation<double> animation, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              color: Colors.blue,
+                              child: ListTile(
+                                title: ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ViewPost(postsList[index])));
+                                  },
+                                  title: Text(
+                                    postsList[index].title,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 22.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  trailing: Text(
+                                    timeago.format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                            postsList[index].date)),
+                                    style: TextStyle(
+                                        fontSize: 14.0, color: Colors.black45),
+                                  ),
+                                  subtitle: Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 12.0, left: 12.0),
+                                    child: Text(
+                                      postsList[index].body,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      })),
-            ),
-          ],
+                          );
+                        })),
+              ),
+            ],
+          ),
         ),
+        onSwipeRight: () {
+          _selectedIndex >= 2
+              ? setState(() {
+                  _selectedIndex = 0;
+                })
+              : setState(() {
+                  _selectedIndex++;
+                });
+        },
+        onSwipeLeft: () {
+          _selectedIndex <= 0
+              ? setState(() {
+                  _selectedIndex = 2;
+                })
+              : setState(() {
+                  _selectedIndex--;
+                });
+        },
+        onSwipeDown: () {},
+        onSwipeUp: () {},
+        swipeConfiguration: SwipeConfiguration(
+            verticalSwipeMinVelocity: 100.0,
+            verticalSwipeMinDisplacement: 50.0,
+            verticalSwipeMaxWidthThreshold: 100.0,
+            horizontalSwipeMaxHeightThreshold: 50.0,
+            horizontalSwipeMinDisplacement: 50.0,
+            horizontalSwipeMinVelocity: 200.0),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

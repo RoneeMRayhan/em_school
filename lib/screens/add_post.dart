@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:em_school/db/post_service.dart';
 import 'package:em_school/models/post.dart';
-import 'package:em_school/screens/book_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
