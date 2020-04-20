@@ -204,6 +204,9 @@ class TestForm extends StatefulWidget {
 class _TestFormState extends State<TestForm> {
   final _formKey = GlobalKey<FormState>();
   Model model = Model();
+
+  List<String> options = <String>['One', 'Two', 'Free', 'Four'];
+  String dropdownValue = 'One';
   @override
   Widget build(BuildContext context) {
     final halfMediaWidth = MediaQuery.of(context).size.width / 2.0;
@@ -309,7 +312,38 @@ class _TestFormState extends State<TestForm> {
                 color: Colors.white,
               ),
             ),
-          )
+          ),
+          Container(
+            alignment: Alignment.center,
+            color: Colors.blue[200],
+            child: DropdownButton(
+              style: TextStyle(color: Colors.blue),
+              selectedItemBuilder: (BuildContext context) {
+                print('value = $context in items:');
+                return options.map((String value) {
+                  print('value = $value in selectedItemBuilder:');
+                  return Text(
+                    dropdownValue,
+                    style: TextStyle(color: Colors.white),
+                  );
+                }).toList();
+              },
+              onChanged: (String newValue) {
+                print('dropdownValue = $dropdownValue in onChanged:');
+                setState(() {
+                  dropdownValue = newValue;
+                });
+                print('value = $newValue in items:');
+              },
+              items: options.map<DropdownMenuItem<String>>((String value) {
+                print('value = $value in items:');
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
         ],
       ),
     );
