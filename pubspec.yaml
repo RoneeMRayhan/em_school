@@ -26,6 +26,10 @@ dependencies:
   fluttertoast: ^4.0.1
   swipe_gesture_recognizer: ^0.0.2
   swipedetector: ^1.2.0
+  google_maps_flutter: ^0.5.26
+  google_map_polyline: ^0.2.0+1
+  google_maps_webservice: ^0.0.16
+  flutter_google_places: ^0.2.4
 
   # Add the dependency for the FlutterFire plugin for Google Analytics
   firebase_analytics: ^5.0.2
