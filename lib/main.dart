@@ -625,3 +625,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
+///[https://cloud.google.com/maps-platform/]
+///[https://pub.dev/packages/google_maps_flutter]
+///[https://github.com/romanejaquez/flutter_routelines]
+///[https://stackoverflow.com/questions/53166578/how-to-get-google-maps-api-key-without-entering-billing-info]
+///[https://developers.google.com/maps/documentation/embed/get-api-key]
+///[https://console.cloud.google.com/apis/credentials?project=emschool-95101]
+///[https://developers.google.com/maps/documentation/android-sdk/get-api-key]
+///[https://developers.google.com/maps/documentation/javascript/get-api-key]
+///[https://pub.dev/packages/google_maps_flutter#-installing-tab-]
+///[https://pub.dev/documentation/google_maps_flutter/latest/]
+///[https://developers.google.com/maps/documentation/ios-sdk/get-api-key]
+///[https://console.firebase.google.com/project/emschool-95101/settings/serviceaccounts/adminsdk]
+///[https://console.cloud.google.com/iam-admin/serviceaccounts?project=emschool-95101&authuser=0]
+///
