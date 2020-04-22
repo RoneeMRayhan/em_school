@@ -1,4 +1,4 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:em_school/screens/home.dart';
 
 void main(List<String> args) {
@@ -10,7 +10,7 @@ void main(List<String> args) {
     ),
   ));
 }
- */
+
 /* 
 
 // Copyright 2017, the Chromium project authors.  Please see the AUTHORS file
@@ -386,7 +386,7 @@ class MyTextFormField extends StatelessWidget {
   }
 }
  */
-
+/* 
 ///[https://medium.com/@stefanodecillis/flutter-using-google-maps-and-drawing-routes-100829419faf]
 
 import 'package:flutter/material.dart';
@@ -625,6 +625,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
+
 ///[https://cloud.google.com/maps-platform/]
 ///[https://pub.dev/packages/google_maps_flutter]
 ///[https://github.com/romanejaquez/flutter_routelines]
@@ -639,3 +640,5 @@ class _MyHomePageState extends State<MyHomePage> {
 ///[https://console.firebase.google.com/project/emschool-95101/settings/serviceaccounts/adminsdk]
 ///[https://console.cloud.google.com/iam-admin/serviceaccounts?project=emschool-95101&authuser=0]
 ///
+ */
+/*  */
