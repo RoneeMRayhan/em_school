@@ -1,3 +1,4 @@
+import 'package:em_school/question.dart';
 import 'package:flutter/material.dart';
 //TODO: Step 2 - Import the rFlutter_Alert package here.
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -32,8 +33,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
-  void checkAnswer(bool userPickedAnswer) {
-    bool correctAnswer = quizBrain.getCorrectAnswer();
+  void checkAnswer(String userPickedAnswer) {
+    String correctAnswer = quizBrain.getCorrectAnswer();
 
     setState(() {
       //TODO: Step 4 - Use IF/ELSE to check if we've reached the end of the quiz. If so,
@@ -103,9 +104,9 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
               textColor: Colors.white,
-              color: Colors.green,
+              color: Colors.amber,
               child: Text(
-                'True',
+                quizBrain.getOptionText1(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -113,7 +114,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                checkAnswer(true);
+                checkAnswer(quizBrain.getOptionText1());
               },
             ),
           ),
@@ -122,9 +123,9 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
-              color: Colors.red,
+              color: Colors.cyan,
               child: Text(
-                'False',
+                quizBrain.getOptionText2(),
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
@@ -132,7 +133,45 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                checkAnswer(false);
+                checkAnswer(quizBrain.getOptionText2());
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              color: Colors.lime,
+              child: Text(
+                quizBrain.getOptionText3(),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                //The user picked false.
+                checkAnswer(quizBrain.getOptionText3());
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              color: Colors.orange,
+              child: Text(
+                quizBrain.getOptionText4(),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                //The user picked false.
+                checkAnswer(quizBrain.getOptionText4());
               },
             ),
           ),
