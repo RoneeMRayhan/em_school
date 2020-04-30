@@ -170,6 +170,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                getData();
                 //The user picked false.
                 checkAnswer(quizBrain.getOptionText2());
                 print(sList);
@@ -178,9 +179,27 @@ class _QuizPageState extends State<QuizPage> {
                 print(Firestore.instance.collection('talks'));
                 print(Firestore.instance.collection('talks').document());
                 print(Firestore.instance.collection('talks').document().get());
-                print(Firestore.instance.collection('talks').document().get().then((DocumentSnapshot ds)=> print(ds)));
-                print(Firestore.instance.collection('talks').document().get().then((DocumentSnapshot ds)=> print(ds.data)));
-                getData();
+                print(Firestore.instance
+                    .collection('talks')
+                    .document()
+                    .get()
+                    .then((DocumentSnapshot ds) => print(ds)));
+                print(Firestore.instance
+                    .collection('talks')
+                    .document()
+                    .get()
+                    .then((DocumentSnapshot ds) => print(ds.data)));
+                print(Firestore.instance
+                    .collection('talks')
+                    .document()
+                    .get()
+                    .then((DocumentSnapshot ds) => print(ds)));
+                print(Firestore.instance
+                    .collection('talks')
+                    //.where("topic", isEqualTo: "flutter")
+                    .snapshots()
+                    .listen((data) =>
+                        data.documents.forEach((doc) => print(doc["title"]))));
               },
             ),
           ),
