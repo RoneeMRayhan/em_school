@@ -88,6 +88,7 @@ class _QuizPageState extends State<QuizPage> {
 
   String s = 'demo';
   List<String> sList = ['sss'];
+  Map<String, String> sMap = {};
   Future<void> getData() {
     /* Firestore.instance
         .collection('talks')
@@ -99,11 +100,12 @@ class _QuizPageState extends State<QuizPage> {
       // use ds as a snapshot
     }); */
     Firestore.instance
-    .collection('talks')
-    //.where("topic", isEqualTo: "flutter")
-    .snapshots()
-    .listen((data) =>
-        data.documents.forEach((doc) => sList.add(doc["title"])));
+        .collection('talks')
+        //.where("topic", isEqualTo: "flutter")
+        .snapshots()
+        .listen(
+            (data) => data.documents.forEach((doc) => sList.add(doc["title"])));
+
     return null;
   }
 
@@ -122,8 +124,8 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-               // s,
-               sList[1],
+                // s,
+                sList[1],
                 //quizBrain.getQuestionText(),
 
                 textAlign: TextAlign.center,
@@ -171,6 +173,13 @@ class _QuizPageState extends State<QuizPage> {
                 //The user picked false.
                 checkAnswer(quizBrain.getOptionText2());
                 print(sList);
+                print(Firestore);
+                print(Firestore.instance);
+                print(Firestore.instance.collection('talks'));
+                print(Firestore.instance.collection('talks').document());
+                print(Firestore.instance.collection('talks').document().get());
+                print(Firestore.instance.collection('talks').document().get().then((DocumentSnapshot ds)=> print(ds)));
+                print(Firestore.instance.collection('talks').document().get().then((DocumentSnapshot ds)=> print(ds.data)));
                 getData();
               },
             ),
