@@ -81,22 +81,29 @@ class _QuizPageState extends State<QuizPage> {
   Future<void> pushData() {
     Firestore.instance
         .collection('talks')
-        .document('document-name')
+        .document()
         .setData({'title': 'titleww', 'author': 'author'});
     return null;
   }
 
   String s = 'demo';
+  List<String> sList = ['sss'];
   Future<void> getData() {
-    Firestore.instance
+    /* Firestore.instance
         .collection('talks')
-        .document('document-name')
+        .document()
         .get()
         .then((DocumentSnapshot ds) {
       s = ds['author'].toString();
 
       // use ds as a snapshot
-    });
+    }); */
+    Firestore.instance
+    .collection('talks')
+    //.where("topic", isEqualTo: "flutter")
+    .snapshots()
+    .listen((data) =>
+        data.documents.forEach((doc) => sList.add(doc["title"])));
     return null;
   }
 
@@ -115,7 +122,8 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                s,
+               // s,
+               sList[1],
                 //quizBrain.getQuestionText(),
 
                 textAlign: TextAlign.center,
@@ -162,6 +170,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 checkAnswer(quizBrain.getOptionText2());
+                getData();
               },
             ),
           ),
