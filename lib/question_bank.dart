@@ -44,6 +44,8 @@ class QuestionBank extends StatelessWidget {
                 subtitle: Text('Message ${index + 1} of $messageCount'),
               ),
               onTap: () => print(questions),
+              onLongPress: ()=>print(questions[0]),
+              onDoubleTap: ()=>print(questions[0]['option1']),
             );
           },
         );
