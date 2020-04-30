@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:em_school/question_bank.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -26,8 +27,8 @@ class _AddQuestionState extends State<AddQuestion> {
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-      /* Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => AddQuestion())); */
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => QuestionBank()));
       Firestore.instance.collection('bcs').document().setData({
         'questionText': questionText,
         'option1': option1,
