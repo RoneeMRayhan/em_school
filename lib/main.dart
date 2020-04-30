@@ -170,6 +170,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 checkAnswer(quizBrain.getOptionText2());
+                print(sList);
                 getData();
               },
             ),
