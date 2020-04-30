@@ -93,7 +93,7 @@ class _QuizPageState extends State<QuizPage> {
         .document('document-name')
         .get()
         .then((DocumentSnapshot ds) {
-      s = Text(ds['author']).toString();
+      s = ds['author'].toString();
 
       // use ds as a snapshot
     });
