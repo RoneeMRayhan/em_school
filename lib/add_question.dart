@@ -45,9 +45,12 @@ class _AddQuestionState extends State<AddQuestion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Add a Question'),
+      ),
       body: Form(
         key: formKey,
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -145,8 +148,11 @@ class _AddQuestionState extends State<AddQuestion> {
                 },
               ),
             ),
-            FlatButton(
-                onPressed: () => pushData(), child: Text('Add Question')),
+            FloatingActionButton(
+              onPressed: () => pushData(),
+              child: Icon(Icons.add),
+              tooltip: 'Add a Question',
+            ),
           ],
         ),
       ),

@@ -32,10 +32,10 @@ class QuestionBank extends StatelessWidget {
             final dynamic message = document['option1'];
             return GestureDetector(
               child: ListTile(
-                trailing: IconButton(
+                /* trailing: IconButton(
                   onPressed: () => document.reference.delete(),
                   icon: Icon(Icons.delete),
-                ),
+                ), */
                 title: Text(
                   message != null
                       ? message.toString()
