@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:em_school/add_question.dart';
 import 'package:em_school/question.dart';
 import 'package:flutter/material.dart';
 //TODO: Step 2 - Import the rFlutter_Alert package here.
@@ -88,7 +89,7 @@ class _QuizPageState extends State<QuizPage> {
 
   String s = 'demo';
   List<String> sList = ['sss'];
-  Map<String, String> sMap = {};
+  Map<String, dynamic> sMap = {};
   Future<void> getData() {
     /* Firestore.instance
         .collection('talks')
@@ -173,6 +174,12 @@ class _QuizPageState extends State<QuizPage> {
                 getData();
                 //The user picked false.
                 checkAnswer(quizBrain.getOptionText2());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddQuestion(),
+                  ),
+                );
                 print(sList);
                 print(Firestore);
                 print(Firestore.instance);
@@ -189,11 +196,7 @@ class _QuizPageState extends State<QuizPage> {
                     .document()
                     .get()
                     .then((DocumentSnapshot ds) => print(ds.data)));
-                print(Firestore.instance
-                    .collection('talks')
-                    .document()
-                    .get()
-                    .then((DocumentSnapshot ds) => print(ds)));
+
                 print(Firestore.instance
                     .collection('talks')
                     //.where("topic", isEqualTo: "flutter")
