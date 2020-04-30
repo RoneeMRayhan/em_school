@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:em_school/question.dart';
 import 'package:flutter/material.dart';
 //TODO: Step 2 - Import the rFlutter_Alert package here.
@@ -77,8 +78,33 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
+  Future<void> pushData() {
+    Firestore.instance
+        .collection('talks')
+        .document('document-name')
+        .setData({'title': 'titleww', 'author': 'author'});
+    return null;
+  }
+
+  String s = 'demo';
+  Future<void> getData() {
+    Firestore.instance
+        .collection('talks')
+        .document('document-name')
+        .get()
+        .then((DocumentSnapshot ds) {
+      s = Text(ds['author']).toString();
+
+      // use ds as a snapshot
+    });
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    pushData();
+    getData();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -89,7 +115,9 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.getQuestionText(),
+                s,
+                //quizBrain.getQuestionText(),
+
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
