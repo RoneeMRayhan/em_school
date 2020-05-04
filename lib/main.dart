@@ -1,16 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:em_school/add_question.dart';
 import 'package:em_school/question.dart';
+import 'package:em_school/question_bank.dart';
 import 'package:flutter/material.dart';
 //TODO: Step 2 - Import the rFlutter_Alert package here.
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'quiz_brain.dart';
 
 QuizBrain quizBrain = QuizBrain();
+//QuestionBank questionBank;
 
-void main() => runApp(Quizzler());
+void main() {
+  runApp(Quizzler());
+}
 
 class Quizzler extends StatelessWidget {
+  //final questionBank = QuestionBank();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -111,6 +116,15 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+
+    //questionBank = QuestionBank();
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     pushData();
     getData();
@@ -146,6 +160,7 @@ class _QuizPageState extends State<QuizPage> {
               color: Colors.amber,
               child: Text(
                 quizBrain.getOptionText1(),
+                //questionBank.getOptionText1(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -241,6 +256,36 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 checkAnswer(quizBrain.getOptionText4());
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              color: Colors.orange,
+              child: Text(
+                'print',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                //The user picked false.
+                QuestionBank questionBank = QuestionBank();
+                print(questionBank.collectionReference.snapshots().listen(
+                    (data) => data.documents
+                        .forEach((doc) => print(doc["questionText"]))));
+
+                questionBank.collectionReference
+                    .document('1')
+                    .get()
+                    .then((DocumentSnapshot ds) {
+                  print(ds['option1']);
+                  // use ds as a snapshot
+                });
               },
             ),
           ),

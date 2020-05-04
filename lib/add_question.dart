@@ -3,6 +3,8 @@ import 'package:em_school/question_bank.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+QuestionBank questionBank = QuestionBank();
+
 class AddQuestion extends StatefulWidget {
   AddQuestion({Key key}) : super(key: key);
 
@@ -11,6 +13,7 @@ class AddQuestion extends StatefulWidget {
 }
 
 class _AddQuestionState extends State<AddQuestion> {
+  int id = 1;
   final GlobalKey<FormState> formKey = GlobalKey();
   String questionText, option1, option2, option3, option4, questionAnswer;
   Future<void> pushData() {
@@ -18,7 +21,7 @@ class _AddQuestionState extends State<AddQuestion> {
 
     if (form.validate()) {
       form.save();
-      //form.reset();
+      form.reset();
       Fluttertoast.showToast(
           msg: "Data inserted successfully",
           toastLength: Toast.LENGTH_SHORT,
@@ -27,9 +30,18 @@ class _AddQuestionState extends State<AddQuestion> {
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => QuestionBank()));
-      Firestore.instance.collection('bcs').document().setData({
+      /* Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => AddQuestion())); */
+      /* Firestore.instance.collection('bcs').document().setData({
+        'questionText': questionText,
+        'option1': option1,
+        'option2': option2,
+        'option3': option3,
+        'option4': option4,
+        'questionAnswer': questionAnswer,
+      }); */
+
+      Firestore.instance.collection('bcss').document('$id').setData({
         'questionText': questionText,
         'option1': option1,
         'option2': option2,
@@ -37,6 +49,7 @@ class _AddQuestionState extends State<AddQuestion> {
         'option4': option4,
         'questionAnswer': questionAnswer,
       });
+      id++;
     }
 
     return null;
@@ -149,6 +162,7 @@ class _AddQuestionState extends State<AddQuestion> {
               ),
             ),
             FloatingActionButton(
+              //onPressed: () => print(questionBank.getQuestionBank()), //pushData(),
               onPressed: () => pushData(),
               child: Icon(Icons.add),
               tooltip: 'Add a Question',
