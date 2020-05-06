@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Baby Names',
+      title: 'EM School',
       home: MyHomePage(),
     );
   }
@@ -24,14 +24,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Baby Name Votes')),
+      appBar: AppBar(title: Text('Select the correct answer')),
       body: _buildBody(context),
     );
   }
 
+  /* Widget _buildColumn(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Text('text'),
+        _buildBody(context),
+      ],
+    );
+  } */
+
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('baby').snapshots(),
+      stream: Firestore.instance.collection('bcs').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -51,38 +60,54 @@ class _MyHomePageState extends State<MyHomePage> {
     final record = Record.fromSnapshot(data);
 
     return Padding(
-      key: ValueKey(record.name),
+      // key: ValueKey(record.name),
+      key: ValueKey(record.questionText),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child: ListTile(
-          title: Text(record.name),
-          trailing: Text(record.votes.toString()),
-          onTap: () =>
-              record.reference.updateData({'votes': FieldValue.increment(1)}),
-        ),
+        child: Column(children: <Widget>[
+          //Text(record.name),
+          Text(record.questionText),
+          Text(record.option1),
+          Text(record.option2),
+          Text(record.option3),
+          Text(record.option4),
+          Text(record.questionAnswer),
+          //Text(record.votes.toString()),
+        ]),
       ),
     );
   }
 }
 
 class Record {
-  final String name;
-  final int votes;
+  //final String name;
+  final String questionText, option1, option2, option3, option4, questionAnswer;
+  //final int votes;
   final DocumentReference reference;
 
   Record.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['name'] != null),
-        assert(map['votes'] != null),
-        name = map['name'],
-        votes = map['votes'];
+      : assert(map['questionText'] != null),
+        assert(map['option1'] != null),
+        assert(map['option2'] != null),
+        assert(map['option3'] != null),
+        assert(map['option4'] != null),
+        assert(map['questionAnswer'] != null),
+        //name = map['name'],
+        questionText = map['questionText'],
+        option1 = map['option1'],
+        option2 = map['option2'],
+        option3 = map['option3'],
+        option4 = map['option4'],
+        questionAnswer = map['questionAnswer'];
+  //votes = map['votes'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 
   @override
-  String toString() => "Record<$name:$votes>";
+  String toString() => "Record<$questionText:$questionAnswer>";
 }
