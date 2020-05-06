@@ -6,8 +6,12 @@ class QuestionBank {
   int _questionNumber = 0;
   //QuestionBank({Key key}) : super(key: key);
   Firestore fdb = Firestore.instance;
+  int length;
 
   List<Map<dynamic, dynamic>> _questionBank = [];
+  Map<dynamic, dynamic> questionMap = {};
+
+  //List<DocumentSnapshot> docList = [];
   getQuestionBank() => _questionBank;
   QuestionBank() {
     buildQuestion();
@@ -15,20 +19,49 @@ class QuestionBank {
   CollectionReference collectionReference;
   Future<void> buildQuestion() async {
     collectionReference = fdb.collection('bcss');
-
-    /*  Firestore.instance
-        .collection('bcs')
-        //.where("topic", isEqualTo: "flutter")
+    final allDocs = await fdb.collection("bcss").getDocuments();
+    length = allDocs.documents.length;
+    collectionReference
         .snapshots()
-        .listen((data) => data.documents
-            .forEach((doc) => _questionBank.add(doc["questionText"]))); */
+        .listen((data) => data.documents.forEach((doc) {
+              //_questionBank.add(doc["questionText"]);
+              /* _questionBank.add(doc["option1"]);
+              _questionBank.add(doc["option2"]);
+              _questionBank.add(doc["option3"]);
+              _questionBank.add(doc["option4"]);
+              _questionBank.add(doc["questionAnswer"]); */
+              /* questionMap.map(doc["questionText"]);
+              questionMap.map(doc["option1"]);
+              questionMap.map(doc["option2"]);
+              questionMap.map(doc["option3"]);
+              questionMap.map(doc["option4"]);
+              questionMap.map(doc["questionAnswer"]); */
+            }));
 
-    /* int messageCount = questionsCollectionRef.length;
-        return(int index) {
-            DocumentReference document = questionsCollectionRef.documents[index];
-            _questionBank.add(D);
-            final dynamic message = document['option1'];
-    return message.toString(); */
+    await collectionReference.document('1').get().then((DocumentSnapshot ds) {
+      questionMap.map(ds.data["questionText"]);
+      questionMap.map(ds["option1"]);
+      questionMap.map(ds["option2"]);
+      questionMap.map(ds["option3"]);
+      questionMap.map(ds["option4"]);
+      questionMap.map(ds["questionAnswer"]);
+      //print(ds['option1']);
+      // use ds as a snapshot
+      //docList.add(ds);
+    });
+    for (int i = 1; i <= length; i++) {
+      collectionReference.document('$i').get().then((DocumentSnapshot ds) {
+        /* questionMap.map(ds["questionText"]);
+        questionMap.map(ds["option1"]);
+        questionMap.map(ds["option2"]);
+        questionMap.map(ds["option3"]);
+        questionMap.map(ds["option4"]);
+        questionMap.map(ds["questionAnswer"]); */
+        //print(ds['option1']);
+        // use ds as a snapshot
+        //docList.add(ds);
+      });
+    }
   }
 
   void nextQuestion() {

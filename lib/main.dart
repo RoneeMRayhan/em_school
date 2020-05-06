@@ -275,17 +275,24 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 QuestionBank questionBank = QuestionBank();
-                print(questionBank.collectionReference.snapshots().listen(
-                    (data) => data.documents
-                        .forEach((doc) => print(doc["questionText"]))));
+                /* questionBank.collectionReference.snapshots().listen((data) =>
+                    data.documents
+                        .forEach((doc) => print(doc["questionText"]))); */
 
-                questionBank.collectionReference
-                    .document('1')
-                    .get()
-                    .then((DocumentSnapshot ds) {
-                  print(ds['option1']);
-                  // use ds as a snapshot
-                });
+                print(questionBank.questionMap.values.toString());
+
+                /* for (int id = 1; id <= questionBank.length; id++) {
+                  questionBank.collectionReference
+                      .document('$id')
+                      .get()
+                      .then((DocumentSnapshot ds) {
+                    print(ds['option1']);
+
+                    // use ds as a snapshot
+                  });
+                } */
+                //print(questionBank.getQuestionBank());
+                //print(questionBank.docList);
               },
             ),
           ),
