@@ -1,113 +1,111 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'fab_circular_menu.dart';
 
-void main() => runApp(MyApp());
+void main () {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
+
+  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
+
     return MaterialApp(
-      title: 'EM School',
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() {
-    return _MyHomePageState();
-  }
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Select the correct answer')),
-      body: _buildBody(context),
-    );
-  }
-
-  /* Widget _buildColumn(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text('text'),
-        _buildBody(context),
-      ],
-    );
-  } */
-
-  Widget _buildBody(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('bcs').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return LinearProgressIndicator();
-
-        return _buildList(context, snapshot.data.documents);
-      },
-    );
-  }
-
-  Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-    return ListView(
-      padding: const EdgeInsets.only(top: 20.0),
-      children: snapshot.map((data) => _buildListItem(context, data)).toList(),
-    );
-  }
-
-  Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
-    final record = Record.fromSnapshot(data);
-
-    return Padding(
-      // key: ValueKey(record.name),
-      key: ValueKey(record.questionText),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Container(
+          color: const Color(0xFF192A56),
+          child: Center(
+            child: RaisedButton(
+              onPressed: () {
+                // The menu can be handled programatically using a key
+                if (fabKey.currentState.isOpen) {
+                  fabKey.currentState.close();
+                } else {
+                  fabKey.currentState.open();
+                }
+              },
+              color: Colors.white,
+              child: Text('Toggle menu programatically', style: TextStyle(color: primaryColor)),
+            ),
+          ),
         ),
-        child: Column(children: <Widget>[
-          //Text(record.name),
-          Text(record.questionText),
-          Text(record.option1),
-          Text(record.option2),
-          Text(record.option3),
-          Text(record.option4),
-          Text(record.questionAnswer),
-          //Text(record.votes.toString()),
-        ]),
+        floatingActionButton: Builder(
+          builder: (context) => FabCircularMenu(
+            key: fabKey,
+            // Cannot be `Alignment.center`
+            alignment: Alignment.bottomRight,
+            ringColor: Colors.white.withAlpha(25),
+            ringDiameter: 500.0,
+            ringWidth: 150.0,
+            fabSize: 64.0,
+            fabElevation: 8.0,
+            
+            // Also can use specific color based on wether
+            // the menu is open or not:
+            // fabOpenColor: Colors.white
+            // fabCloseColor: Colors.white
+            // These properties take precedence over fabColor
+            fabColor: Colors.white,
+            fabOpenIcon: Icon(Icons.menu, color: primaryColor),
+            fabCloseIcon: Icon(Icons.close, color: primaryColor),
+            fabMargin: const EdgeInsets.all(16.0),
+            animationDuration: const Duration(milliseconds: 800),
+            animationCurve: Curves.easeInOutCirc,
+            onDisplayChange: (isOpen) {
+              _showSnackBar(context, "The menu is ${isOpen ? "open" : "closed"}");
+            },
+            children: <Widget>[
+              RawMaterialButton(
+                onPressed: () {
+                  _showSnackBar(context, "You pressed 1");
+                },
+                shape: CircleBorder(),
+                padding: const EdgeInsets.all(24.0),
+                child: Icon(Icons.looks_one, color: Colors.white),
+              ),
+              RawMaterialButton(
+                onPressed: () {
+                  _showSnackBar(context, "You pressed 2");
+                },
+                shape: CircleBorder(),
+                padding: const EdgeInsets.all(24.0),
+                child: Icon(Icons.looks_two, color: Colors.white),
+              ),
+              RawMaterialButton(
+                onPressed: () {
+                  _showSnackBar(context, "You pressed 3");
+                },
+                shape: CircleBorder(),
+                padding: const EdgeInsets.all(24.0),
+                child: Icon(Icons.looks_3, color: Colors.white),
+              ),
+              RawMaterialButton(
+                onPressed: () {
+                  _showSnackBar(context, "You pressed 4. This one closes the menu on tap");
+                  fabKey.currentState.close();
+                },
+                shape: CircleBorder(),
+                padding: const EdgeInsets.all(24.0),
+                child: Icon(Icons.looks_4, color: Colors.white),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
-}
+  
+  void _showSnackBar (BuildContext context, String message) {
+    Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          duration: const Duration(milliseconds: 1000),
+        )
+    );
+  }
 
-class Record {
-  //final String name;
-  final String questionText, option1, option2, option3, option4, questionAnswer;
-  //final int votes;
-  final DocumentReference reference;
-
-  Record.fromMap(Map<String, dynamic> map, {this.reference})
-      : assert(map['questionText'] != null),
-        assert(map['option1'] != null),
-        assert(map['option2'] != null),
-        assert(map['option3'] != null),
-        assert(map['option4'] != null),
-        assert(map['questionAnswer'] != null),
-        //name = map['name'],
-        questionText = map['questionText'],
-        option1 = map['option1'],
-        option2 = map['option2'],
-        option3 = map['option3'],
-        option4 = map['option4'],
-        questionAnswer = map['questionAnswer'];
-  //votes = map['votes'];
-
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
-
-  @override
-  String toString() => "Record<$questionText:$questionAnswer>";
 }
