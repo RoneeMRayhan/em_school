@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: MyHomePage(),
         floatingActionButton: FloatingActionButton(onPressed: () {
+          //mark countdown
           for (int i = 0; i < groupValue.length - 1; i++) {
             if (groupValue[i] == correctAnswer[i]) {
               mark = mark + 1.0;
