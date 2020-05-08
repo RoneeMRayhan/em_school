@@ -21,12 +21,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String groupValue;
+  Firestore fsd = Firestore.instance;
+  List<String> groupValue;
+  int index;
   @override
   void initState() {
     super.initState();
-
-    groupValue = '';
+    index = 0;
+    Record record;
+    groupValue = [];
+    fsd.collection('bcs').snapshots().listen((data) {
+      data.documents.map((f) {
+        record = Record.fromSnapshot(f);
+        groupValue.add(record.id.toString());
+      }).toList();
+    });
   }
 
   @override
@@ -65,7 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
-    final record = Record.fromSnapshot(data);
+    /* final  */ Record record = Record.fromSnapshot(data);
+
+    /* groupValue.add(record.questionAnswer); */
+    //int index = 0;
     //String groupValue;
 
     return Padding(
@@ -90,7 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
               RaisedButton(onPressed: () {
                 print(groupValue);
                 print(groupValue.length);
-                print(groupValue);
+                print(groupValue[3]);
+                print(index.toString());
               }),
               Divider(
                 thickness: 1,
@@ -100,11 +113,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ListTile(
                 title: Text(record.option1),
                 leading: Radio(
-                  value: record.option1,
-                  groupValue: groupValue,
+                  value: record.option1, //record.questionAnswer,
+                  groupValue: groupValue[record.id - 1],
                   onChanged: (value) {
                     setState(() {
-                      groupValue = value;
+                      groupValue[record.id - 1] = value;
+                      //index++;
+                      //groupValue.add(value);
                     });
                   },
                 ),
@@ -113,22 +128,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text(record.option2),
                 leading: Radio(
                   value: record.option2,
-                  groupValue: groupValue,
+                  groupValue: groupValue[record.id - 1],
                   onChanged: (value) {
                     setState(() {
-                      groupValue = value;
+                      groupValue[record.id - 1] = value;
+                      //index++;
                     });
                   },
                 ),
               ),
-              ListTile(
+              /* ListTile(
                 title: Text(record.option3),
                 leading: Radio(
-                  value: record.option3,
-                  groupValue: groupValue,
+                  value: record.questionAnswer,
+                  groupValue: groupValue[0],
                   onChanged: (value) {
                     setState(() {
-                      groupValue = value;
+                      groupValue.add(value);
                     });
                   },
                 ),
@@ -136,15 +152,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ListTile(
                 title: Text(record.option4),
                 leading: Radio(
-                  value: record.option4,
-                  groupValue: groupValue,
+                  value: record.questionAnswer,
+                  groupValue: groupValue[0],
                   onChanged: (value) {
                     setState(() {
-                      groupValue = value;
+                      groupValue.add(value);
                     });
                   },
                 ),
-              ),
+              ), */
               /* Text(record.option2),
               Text(record.option3),
               Text(record.option4),
@@ -159,6 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
 class Record {
   //final String name;
   final String questionText, option1, option2, option3, option4, questionAnswer;
+  int id;
   //final int votes;
   final DocumentReference reference;
 
@@ -169,13 +186,15 @@ class Record {
         assert(map['option3'] != null),
         assert(map['option4'] != null),
         assert(map['questionAnswer'] != null),
+        assert(map['id'] != null),
         //name = map['name'],
         questionText = map['questionText'],
         option1 = map['option1'],
         option2 = map['option2'],
         option3 = map['option3'],
         option4 = map['option4'],
-        questionAnswer = map['questionAnswer'];
+        questionAnswer = map['questionAnswer'],
+        id = map['id'];
   //votes = map['votes'];
 
   Record.fromSnapshot(DocumentSnapshot snapshot)
