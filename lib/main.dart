@@ -3,12 +3,32 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+Firestore fsd = Firestore.instance;
+List<String> groupValue = [];
+List<String> correctAnswer = [];
+int index = 0;
+double mark = 0.0;
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'EM School',
-      home: MyHomePage(),
+      home: Scaffold(
+        body: MyHomePage(),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          for (int i = 0; i < groupValue.length - 1; i++) {
+            if (groupValue[i] == correctAnswer[i]) {
+              mark = mark + 1.0;
+            } else if (groupValue[i] != correctAnswer[i]) {
+              mark = mark - 0.5;
+            } else {
+              mark = mark;
+            }
+          }
+          print(mark.toString());
+        }),
+      ),
     );
   }
 }
@@ -21,19 +41,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Firestore fsd = Firestore.instance;
+  /* Firestore fsd = Firestore.instance;
   List<String> groupValue;
+  List<String> correctAnswer;
   int index;
+  double mark = 0.0; */
   @override
   void initState() {
     super.initState();
     index = 0;
     Record record;
     groupValue = [];
+    correctAnswer = [];
     fsd.collection('bcs').snapshots().listen((data) {
       data.documents.map((f) {
         record = Record.fromSnapshot(f);
         groupValue.add(record.id.toString());
+        correctAnswer.add(record.questionAnswer);
+        print(record.questionAnswer);
       }).toList();
     });
   }
@@ -137,14 +162,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-              /* ListTile(
+              ListTile(
                 title: Text(record.option3),
                 leading: Radio(
-                  value: record.questionAnswer,
-                  groupValue: groupValue[0],
+                  value: record.option3,
+                  groupValue: groupValue[record.id - 1],
                   onChanged: (value) {
                     setState(() {
-                      groupValue.add(value);
+                      groupValue[record.id - 1] = value;
                     });
                   },
                 ),
@@ -152,15 +177,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ListTile(
                 title: Text(record.option4),
                 leading: Radio(
-                  value: record.questionAnswer,
-                  groupValue: groupValue[0],
+                  value: record.option4,
+                  groupValue: groupValue[record.id - 1],
                   onChanged: (value) {
                     setState(() {
-                      groupValue.add(value);
+                      groupValue[record.id - 1] = value;
                     });
                   },
                 ),
-              ), */
+              ),
               /* Text(record.option2),
               Text(record.option3),
               Text(record.option4),
