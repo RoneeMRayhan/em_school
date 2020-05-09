@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,20 +17,32 @@ class MyApp extends StatelessWidget {
       title: 'EM School',
       home: Scaffold(
         body: MyHomePage(),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          //mark countdown
-          for (int i = 0; i <= groupValue.length - 1; i++) {
-            if (groupValue[i] == correctAnswer[i]) {
-              mark = mark + 1.0;
-            } else if (groupValue[i] != '' &&
-                groupValue[i] != correctAnswer[i]) {
-              mark = mark - 0.5;
-            } else {
-              mark = mark;
-            }
-          }
-          print(mark.toString());
-        }),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.save),
+            tooltip: 'Submit',
+            onPressed: () {
+              //mark countdown
+              for (int i = 0; i <= groupValue.length - 1; i++) {
+                if (groupValue[i] == correctAnswer[i]) {
+                  mark = mark + 1.0;
+                } else if (groupValue[i] != '' &&
+                    groupValue[i] != correctAnswer[i]) {
+                  mark = mark - 0.5;
+                } else {
+                  mark = mark;
+                }
+              }
+              print(mark.toString());
+              Fluttertoast.showToast(
+                  msg: "আপনি $mark নম্বর পেয়েছেন",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.amber,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+              mark = 0;
+            }),
       ),
     );
   }
