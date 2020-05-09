@@ -18,10 +18,11 @@ class MyApp extends StatelessWidget {
         body: MyHomePage(),
         floatingActionButton: FloatingActionButton(onPressed: () {
           //mark countdown
-          for (int i = 0; i < groupValue.length - 1; i++) {
+          for (int i = 0; i <= groupValue.length - 1; i++) {
             if (groupValue[i] == correctAnswer[i]) {
               mark = mark + 1.0;
-            } else if (groupValue[i] != correctAnswer[i]) {
+            } else if (groupValue[i] != '' &&
+                groupValue[i] != correctAnswer[i]) {
               mark = mark - 0.5;
             } else {
               mark = mark;
@@ -57,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
     fsd.collection('bcs').snapshots().listen((data) {
       data.documents.map((f) {
         record = Record.fromSnapshot(f);
-        groupValue.add(record.id.toString());
+        groupValue.add(/* record.id.toString() */ '');
         correctAnswer.add(record.questionAnswer);
         print(record.questionAnswer);
       }).toList();
